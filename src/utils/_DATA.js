@@ -138,6 +138,11 @@ export function _getQuestions() {
   });
 }
 
+export function _showDBData() {
+  console.log('USERS DB: ', users);
+  console.log('QUESTIONS DB:', questions);
+}
+
 function formatQuestion({ optionOneText, optionTwoText, author }) {
   return {
     id: generateUID(),
@@ -191,7 +196,7 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
           }
         }
       };
-
+      console.log('USERS: ', users);
       questions = {
         ...questions,
         [qid]: {

@@ -1,9 +1,14 @@
 import {
+  _showDBData,
   _getUsers,
   _getQuestions,
   _saveQuestion,
   _saveQuestionAnswer
 } from './_DATA';
+
+export function showDBData() {
+  return _showDBData();
+}
 
 export function getInitialData() {
   return Promise.all([_getUsers(), _getQuestions()]).then(

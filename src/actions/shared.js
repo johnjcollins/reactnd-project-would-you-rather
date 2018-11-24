@@ -1,17 +1,40 @@
-import { getInitialData } from '../utils/api';
-import { receiveUsers } from './users';
-import { receiveQuestions } from './questions';
-import { setAuthedUser } from './authedUser';
-
-const AUTHED_USER_ID = 'johndoe';
+import { getInitialData, saveQuestionAnswer, saveQuestion } from '../utils/api';
+import { receiveUsers, saveUserAnswer, saveUserQuestion } from './users';
+import {
+  receiveQuestions,
+  saveQuestionVote,
+  saveQuestionNew
+} from './questions';
 
 export function handleInitialData() {
   return dispatch => {
     getInitialData().then(({ users, questions }) => {
-      console.log('Users: ', users);
       dispatch(receiveUsers(users));
       dispatch(receiveQuestions(questions));
-      dispatch(setAuthedUser(AUTHED_USER_ID));
+    });
+  };
+}
+
+export function saveAnswer(info) {
+  return dispatch => {
+    saveQuestionAnswer(info).then(() => {
+      dispatch(saveUserAnswer(info));
+      dispatch(saveQuestionVote(info));
+    });
+  };
+}
+
+export function saveNewQuestion(question) {
+  return dispatch => {
+    console.log('Question: ', question);
+    saveQuestion(question).then(q => {
+      console.log('q: ', q);
+      const newUserQuestion = {
+        userId: q.author,
+        questionId: q.id
+      };
+      dispatch(saveUserQuestion(newUserQuestion));
+      dispatch(saveQuestionNew(q));
     });
   };
 }
