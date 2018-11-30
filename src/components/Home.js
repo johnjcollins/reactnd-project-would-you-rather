@@ -1,31 +1,76 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import QuestionSelect from './QuestionSelect';
-import { showDBData } from '../utils/api';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import { compose } from 'recompose';
+
+function TabContainer(props) {
+  return (
+    <Typography component="div" style={{ padding: 8 * 3 }}>
+      {props.children}
+    </Typography>
+  );
+}
+
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper
+  }
+});
 
 class Home extends Component {
+  state = {
+    value: 0
+  };
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
   render() {
-    showDBData();
+    const { classes } = this.props;
+    const { value } = this.state;
     const { answeredQuestions, unansweredQuestions } = this.props;
     return (
       <div>
-        <h2>Home</h2>
-        <h3>Answered</h3>
-        <ul>
-          {answeredQuestions.map(q => (
-            <li key={q}>
-              <QuestionSelect id={q} ask={false} />
-            </li>
-          ))}
-        </ul>{' '}
-        <h3>Unanswered</h3>
-        <ul>
-          {unansweredQuestions.map(q => (
-            <li key={q}>
-              <QuestionSelect id={q} ask={true} />
-            </li>
-          ))}
-        </ul>
+        <div className={classes.root}>
+          <Tabs value={value} onChange={this.handleChange}>
+            <Tab label="Unanswered Questions" />
+            <Tab label="Answered Questions" />
+          </Tabs>
+
+          {value === 0 && (
+            <TabContainer>
+              <ul style={{ listStyle: 'none' }}>
+                {unansweredQuestions.map(q => (
+                  <li key={q}>
+                    <QuestionSelect id={q} ask={true} />
+                  </li>
+                ))}
+              </ul>
+            </TabContainer>
+          )}
+          {value === 1 && (
+            <TabContainer>
+              <ul style={{ listStyle: 'none' }}>
+                {answeredQuestions.map(q => (
+                  <li key={q}>
+                    <QuestionSelect id={q} ask={false} />
+                  </li>
+                ))}
+              </ul>
+            </TabContainer>
+          )}
+        </div>
       </div>
     );
   }
@@ -45,4 +90,7 @@ function mapStateToProps({ users, questions, authedUser }) {
   };
 }
 
-export default connect(mapStateToProps)(Home);
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps)
+)(Home);

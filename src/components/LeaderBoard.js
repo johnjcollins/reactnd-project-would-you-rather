@@ -1,30 +1,92 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    maxWidth: 600,
+    padding: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2
+  },
+  avatar: {
+    margin: 10,
+    width: 90,
+    height: 90
+  },
+  button: {
+    width: '100%'
+  },
+  grid: {
+    backgroundColor: '#fff'
+  }
+});
 
 const LeaderBoard = props => {
-  const { leaders } = props;
+  const { authedUser, leaders, classes } = props;
+  if (!authedUser) {
+    return <Redirect to="/" />;
+  }
   return (
-    <div>
-      <h3>Leader Board</h3>
+    <Fragment>
       {leaders.map(leader => (
-        <div>
-          <h4>{leader.name}</h4>
-          <p>
-            <img src={leader.avatar} alt={`Avatar for ${leader.name}`} />
-          </p>
-          <p>Answered questions: {leader.answered}</p>
-          <p>Created questions: {leader.created}</p>
-          <p>
-            <strong>Score:</strong> {leader.score}
-          </p>
-          <hr />
-        </div>
+        <Paper className={classes.root}>
+          <Grid container spacing={16} className={classes.grid}>
+            <Grid item>
+              <Avatar
+                src={leader.avatar}
+                alt={`Avatar of ${leader.name}`}
+                className={classes.avatar}
+              />
+            </Grid>
+            <Grid item xs container direction="column" spacing={16}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1">
+                  {leader.name}
+                </Typography>
+                <Typography gutterBottom>
+                  Answered questions {leader.answered}
+                </Typography>
+                <Typography gutterBottom>
+                  Created questions {leader.created}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item xs container direction="column" spacing={16}>
+              <Grid item xs>
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  style={{ textAlign: 'center' }}
+                >
+                  Score
+                </Typography>
+              </Grid>
+              <Grid item xs>
+                <Typography
+                  gutterBottom
+                  variant="subtitle1"
+                  style={{ textAlign: 'center' }}
+                >
+                  {leader.score}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Paper>
       ))}
-    </div>
+    </Fragment>
   );
 };
 
-function mapStateToProps({ users, questions, authedUser }) {
+function mapStateToProps({ users, authedUser }) {
   const leadersArr = Object.values(users);
   const leaders = leadersArr
     .map(user => ({
@@ -36,8 +98,16 @@ function mapStateToProps({ users, questions, authedUser }) {
     }))
     .sort((a, b) => b.score - a.score);
   return {
+    authedUser,
     leaders
   };
 }
 
-export default connect(mapStateToProps)(LeaderBoard);
+LeaderBoard.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps)
+)(LeaderBoard);

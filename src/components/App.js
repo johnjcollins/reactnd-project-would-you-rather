@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleInitialData } from '../actions/shared';
@@ -10,6 +12,23 @@ import QuestionNew from './QuestionNew';
 import LeaderBoard from './LeaderBoard';
 import Nav from './Nav';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#a679ef',
+      main: '#744cbc',
+      dark: '#42218b',
+      contrastText: '#fff'
+    },
+    secondary: {
+      light: '#9affff',
+      main: '#61dafb',
+      dark: '#10a8c8',
+      contrastText: '#000'
+    }
+  }
+});
+
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData());
@@ -17,22 +36,26 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <div>
-          <Nav />
-          <h2>Would You Rather?</h2>
-          {this.props.loading === true ? null : (
+      <MuiThemeProvider theme={theme}>
+        <Fragment>
+          <CssBaseline />
+          <BrowserRouter>
             <div>
-              <Route exact path="/" component={SignIn} />
-              <Route path="/home" component={Home} />
-              <Route path="/ask/:id" component={QuestionAsk} />
-              <Route path="/result/:id" component={QuestionResult} />
-              <Route path="/new" component={QuestionNew} />
-              <Route path="/leader" component={LeaderBoard} />
+              <Nav>
+                {/* {this.props.loading === true ? null : null} */}
+                <div>
+                  <Route exact path="/" component={SignIn} />
+                  <Route path="/home" component={Home} />
+                  <Route path="/ask/:id" component={QuestionAsk} />
+                  <Route path="/result/:id" component={QuestionResult} />
+                  <Route path="/new" component={QuestionNew} />
+                  <Route path="/leader" component={LeaderBoard} />
+                </div>
+              </Nav>
             </div>
-          )}
-        </div>
-      </BrowserRouter>
+          </BrowserRouter>
+        </Fragment>
+      </MuiThemeProvider>
     );
   }
 }
