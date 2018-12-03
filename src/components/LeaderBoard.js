@@ -37,7 +37,7 @@ const LeaderBoard = props => {
   return (
     <Fragment>
       {leaders.map(leader => (
-        <Paper className={classes.root}>
+        <Paper className={classes.root} key={leader.id}>
           <Grid container spacing={16} className={classes.grid}>
             <Grid item>
               <Avatar
@@ -91,6 +91,7 @@ function mapStateToProps({ users, authedUser }) {
   const leadersArr = Object.values(users);
   const leaders = leadersArr
     .map(user => ({
+      id: user.id,
       name: user.name,
       avatar: user.avatarURL,
       answered: Object.keys(user.answers).length,

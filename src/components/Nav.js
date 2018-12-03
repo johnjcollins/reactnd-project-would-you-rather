@@ -107,7 +107,7 @@ class Nav extends Component {
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/new"
+              to="/add"
               selected={'/new' === pathname}
               disabled={authedUser === null}
             >
@@ -115,8 +115,8 @@ class Nav extends Component {
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/leader"
-              selected={'/leader' === pathname}
+              to="/leaderboard"
+              selected={'/leaderboard' === pathname}
               disabled={authedUser === null}
             >
               Leader Board

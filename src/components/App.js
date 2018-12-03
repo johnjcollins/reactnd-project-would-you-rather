@@ -42,14 +42,13 @@ class App extends Component {
           <BrowserRouter>
             <div>
               <Nav>
-                {/* {this.props.loading === true ? null : null} */}
                 <div>
                   <Route exact path="/" component={SignIn} />
                   <Route path="/home" component={Home} />
-                  <Route path="/ask/:id" component={QuestionAsk} />
+                  <Route path="/questions/:id" component={QuestionAsk} />
                   <Route path="/result/:id" component={QuestionResult} />
-                  <Route path="/new" component={QuestionNew} />
-                  <Route path="/leader" component={LeaderBoard} />
+                  <Route path="/add" component={QuestionNew} />
+                  <Route path="/leaderboard" component={LeaderBoard} />
                 </div>
               </Nav>
             </div>

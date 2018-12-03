@@ -35,7 +35,7 @@ class QuestionSelect extends Component {
     e.preventDefault();
     const { id, ask } = this.props;
     if (ask) {
-      this.props.history.push(`/ask/${id}`);
+      this.props.history.push(`/questions/${id}`);
     } else {
       this.props.history.push(`/result/${id}`);
     }

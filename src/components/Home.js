@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import QuestionSelect from './QuestionSelect';
 import Tabs from '@material-ui/core/Tabs';
@@ -39,7 +40,10 @@ class Home extends Component {
   render() {
     const { classes } = this.props;
     const { value } = this.state;
-    const { answeredQuestions, unansweredQuestions } = this.props;
+    const { answeredQuestions, unansweredQuestions, authedUser } = this.props;
+    if (!authedUser) {
+      return <Redirect to="/" />;
+    }
     return (
       <div>
         <div className={classes.root}>
@@ -78,10 +82,19 @@ class Home extends Component {
 
 function mapStateToProps({ users, questions, authedUser }) {
   const allQuestions = Object.keys(questions);
-  const answeredQuestions = Object.keys(users[authedUser].answers);
-  const unansweredQuestions = allQuestions.filter(
-    question => !answeredQuestions.includes(question)
-  );
+  let answeredQuestions;
+  let unansweredQuestions;
+  if (authedUser) {
+    answeredQuestions = Object.keys(users[authedUser].answers).sort(
+      (a, b) => questions[b].timestamp - questions[a].timestamp
+    );
+    unansweredQuestions = allQuestions.filter(
+      question => !answeredQuestions.includes(question)
+    );
+    unansweredQuestions = unansweredQuestions.sort(
+      (a, b) => questions[b].timestamp - questions[a].timestamp
+    );
+  }
 
   return {
     answeredQuestions,
