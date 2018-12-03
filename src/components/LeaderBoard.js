@@ -48,14 +48,14 @@ const LeaderBoard = props => {
             </Grid>
             <Grid item xs container direction="column" spacing={16}>
               <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
+                <Typography gutterBottom variant="h6">
                   {leader.name}
                 </Typography>
                 <Typography gutterBottom>
-                  Answered questions {leader.answered}
+                  Answered questions: {leader.answered}
                 </Typography>
                 <Typography gutterBottom>
-                  Created questions {leader.created}
+                  Created questions: {leader.created}
                 </Typography>
               </Grid>
             </Grid>
@@ -72,7 +72,8 @@ const LeaderBoard = props => {
               <Grid item xs>
                 <Typography
                   gutterBottom
-                  variant="subtitle1"
+                  color="primary"
+                  variant="h4"
                   style={{ textAlign: 'center' }}
                 >
                   {leader.score}

@@ -65,7 +65,11 @@ class QuestionResult extends Component {
               <Grid item>
                 <Paper className={classes.root}>
                   {answer === 'optionOne' && (
-                    <StarIcon className={classes.icon} />
+                    <div style={{ marginBottom: 10 }}>
+                      <Typography variant="caption">
+                        <StarIcon className={classes.icon} /> Your Answer
+                      </Typography>
+                    </div>
                   )}
                   <Typography variant="subtitle2">
                     Would you rather {optionOne.text}?
@@ -87,7 +91,11 @@ class QuestionResult extends Component {
                 <Grid item>
                   <Paper className={classes.root}>
                     {answer === 'optionTwo' && (
-                      <StarIcon className={classes.icon} />
+                      <div style={{ marginBottom: 10 }}>
+                        <Typography variant="caption">
+                          <StarIcon className={classes.icon} /> Your Answer
+                        </Typography>
+                      </div>
                     )}
 
                     <Typography variant="subtitle2">

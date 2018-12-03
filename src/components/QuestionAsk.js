@@ -32,18 +32,10 @@ const styles = theme => ({
   },
   grid: {
     backgroundColor: '#fff'
+  },
+  formControl: {
+    width: '100%'
   }
-  // root: {
-  //   ...theme.mixins.gutters(),
-  //   paddingTop: theme.spacing.unit * 2,
-  //   paddingBottom: theme.spacing.unit * 2
-  // },
-  // formControl: {
-  //   margin: theme.spacing.unit * 3
-  // },
-  // group: {
-  //   margin: `${theme.spacing.unit}px 0`
-  // }
 });
 
 class QuestionAsk extends Component {
@@ -91,51 +83,6 @@ class QuestionAsk extends Component {
     }
     return (
       <div>
-        {/* <Paper className={classes.root}>
-          <Typography variant="headline" style={{ paddingBottom: 20 }}>{`${
-            author.name
-          } asks:`}</Typography>
-          <Avatar
-            src={author.avatarURL}
-            alt={`Avatar of ${author.name}`}
-            className={classes.avatar}
-          />
-          <Typography variant="h4" style={{ paddingBottom: 20 }}>
-            Would You Rather...
-          </Typography>
-          <form
-            onSubmit={e => {
-              this.handleSubmit(e, question.id, authedUser);
-            }}
-          >
-            <FormControl component="fieldset" className={classes.formControl}>
-              <RadioGroup
-                className={classes.group}
-                value={this.state.answer}
-                onChange={this.handleChange}
-              >
-                <FormControlLabel
-                  value="optionOne"
-                  control={<Radio />}
-                  label={question['optionOne'].text}
-                />
-                <FormControlLabel
-                  value="optionTwo"
-                  control={<Radio />}
-                  label={question['optionTwo'].text}
-                />
-              </RadioGroup>
-            </FormControl>
-            <Typography variant="caption" color="error">
-              {error}
-            </Typography>
-            <FormControl className={classes.formControl}>
-              <Button type="submit" variant="contained" color="secondary">
-                Submit
-              </Button>
-            </FormControl>
-          </form>
-        </Paper> */}
         <Paper className={classes.root}>
           <Typography variant="headline" style={{ paddingBottom: 20 }}>{`${
             author.name

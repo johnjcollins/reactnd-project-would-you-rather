@@ -18,9 +18,7 @@ const styles = theme => ({
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    maxWidth: 450,
-    marginRight: 'auto',
-    marginLeft: 'auto'
+    maxWidth: 450
   },
   typo: {
     textAlign: 'center'

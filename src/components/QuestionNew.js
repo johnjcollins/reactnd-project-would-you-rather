@@ -16,35 +16,19 @@ const styles = theme => ({
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    maxWidth: 450,
-    marginRight: 'auto',
-    marginLeft: 'auto'
+    maxWidth: 450
   },
   typo: {
     textAlign: 'center'
   },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 120,
+    minWidth: '100%',
     alignSelf: 'center'
   },
   selectEmpty: {
     marginTop: theme.spacing.unit * 2
-  } // container: {
-  //   display: 'flex',
-  //   flexWrap: 'wrap'
-  // },
-  // textField: {
-  //   marginLeft: theme.spacing.unit,
-  //   marginRight: theme.spacing.unit,
-  //   width: 200
-  // },
-  // dense: {
-  //   marginTop: 19
-  // },
-  // menu: {
-  //   width: 200
-  // }
+  }
 });
 
 class QuestionNew extends Component {
@@ -122,7 +106,11 @@ class QuestionNew extends Component {
               onChange={this.handleChange}
             />
           </FormControl>
-          <Typography variant="caption" color="inherit">
+          <Typography
+            variant="caption"
+            color="inherit"
+            style={{ textAlign: 'center', fontSize: 15, marginTop: 30 }}
+          >
             OR
           </Typography>
           <FormControl className={classes.formControl}>
