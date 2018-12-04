@@ -41,6 +41,12 @@ const styles = theme => ({
   margin: { marginRight: 15 }
 });
 
+const menuItems = [
+  { title: 'Home', url: '/home' },
+  { title: 'New Question', url: '/add' },
+  { title: 'Leader Board', url: '/leaderboard' }
+];
+
 class Nav extends Component {
   handleClick = e => {
     e.preventDefault();
@@ -97,30 +103,17 @@ class Nav extends Component {
         >
           <div className={classes.toolbar} />
           <MenuList>
-            <MenuItem
-              component={Link}
-              to="/home"
-              selected={'/home' === pathname}
-              disabled={authedUser === null}
-            >
-              Home
-            </MenuItem>
-            <MenuItem
-              component={Link}
-              to="/add"
-              selected={'/new' === pathname}
-              disabled={authedUser === null}
-            >
-              New Question
-            </MenuItem>
-            <MenuItem
-              component={Link}
-              to="/leaderboard"
-              selected={'/leaderboard' === pathname}
-              disabled={authedUser === null}
-            >
-              Leader Board
-            </MenuItem>
+            {menuItems.map((menuItem, index) => (
+              <MenuItem
+                key={index}
+                component={Link}
+                to={menuItem.url}
+                selected={menuItem.url === pathname}
+                disabled={authedUser === null}
+              >
+                {menuItem.title}
+              </MenuItem>
+            ))}
           </MenuList>
         </Drawer>
         <main className={classes.content}>

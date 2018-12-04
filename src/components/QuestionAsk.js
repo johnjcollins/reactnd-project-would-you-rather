@@ -77,6 +77,9 @@ class QuestionAsk extends Component {
   render() {
     const { authedUser, question, author, classes } = this.props;
     const { toResult, error } = this.state;
+    if (!question) {
+      return <Redirect to="/error" />;
+    }
     if (toResult === true) {
       const redirectURL = `/result/${question.id}`;
       return <Redirect to={redirectURL} />;
@@ -148,8 +151,13 @@ class QuestionAsk extends Component {
 
 function mapStateToProps({ questions, users, authedUser }, { match }) {
   const id = match.params.id;
-  const question = questions[id];
-  const author = users[question.author];
+  let question = questions[id];
+  let author;
+  if (!question) {
+    author = null;
+  } else {
+    author = users[question.author];
+  }
   return {
     authedUser,
     question,

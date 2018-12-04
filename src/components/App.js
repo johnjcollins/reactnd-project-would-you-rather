@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleInitialData } from '../actions/shared';
 import Home from './Home';
@@ -11,6 +11,8 @@ import QuestionResult from './QuestionResult';
 import QuestionNew from './QuestionNew';
 import LeaderBoard from './LeaderBoard';
 import Nav from './Nav';
+import NotFound from './NotFound';
+import Error from './Error';
 
 const theme = createMuiTheme({
   palette: {
@@ -43,12 +45,16 @@ class App extends Component {
             <div>
               <Nav>
                 <div>
-                  <Route exact path="/" component={SignIn} />
-                  <Route path="/home" component={Home} />
-                  <Route path="/questions/:id" component={QuestionAsk} />
-                  <Route path="/result/:id" component={QuestionResult} />
-                  <Route path="/add" component={QuestionNew} />
-                  <Route path="/leaderboard" component={LeaderBoard} />
+                  <Switch>
+                    <Route exact path="/" component={SignIn} />
+                    <Route path="/home" component={Home} />
+                    <Route path="/questions/:id" component={QuestionAsk} />
+                    <Route path="/result/:id" component={QuestionResult} />
+                    <Route path="/add" component={QuestionNew} />
+                    <Route path="/leaderboard" component={LeaderBoard} />
+                    <Route path="/error" component={Error} />
+                    <Route component={NotFound} />
+                  </Switch>
                 </div>
               </Nav>
             </div>
